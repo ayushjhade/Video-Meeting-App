@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { dummyStats, dummyUser } from '../assets/asset'
 import { useNavigate } from 'react-router-dom'
+import {toast} from "react-hot-toast";
 
 const Dashboard = () => {
   const user = dummyUser
@@ -30,17 +31,27 @@ const Dashboard = () => {
   }, [])
 
   const handleCreateMeeting = () => {
-    // Meeting creation logic will go here
+    setIsCreating(true)
+    const chars="abcdefghijklmnopqrstuvwxyz";
+    const seg = () => Array.from({length:3}, () => chars[Math.floor(random() * chars.length)] ).join("");
+    const newMeetingId = "${seg()}-${seg()}-${seg()}";
+
+    setTimeout(() => {
+      setIsCreating(false)
+      toast.success("Meeting created successfully!");
+      navigate("/meeting/${newMeetingId}")
+    },400)
   }
 
   const handleJoinMeeting = (e) => {
     e.preventDefault()
-
-    if (!joinId.trim()) return
-
-    // Meeting join logic will go here
-    console.log("Joining meeting:", joinId)
+    const cleanId = joinId.trim();
+    if(!cleanId ){
+      toast.error("Please enter a valid Meeting ID");
+      return;
   }
+  navigate("/Meeting/${cleanId}")
+}
 
   return (
     <div className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-12 flex flex-col justify-center">
