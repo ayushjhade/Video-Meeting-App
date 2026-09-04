@@ -33,13 +33,13 @@ const Dashboard = () => {
   const handleCreateMeeting = () => {
     setIsCreating(true)
     const chars="abcdefghijklmnopqrstuvwxyz";
-    const seg = () => Array.from({length:3}, () => chars[Math.floor(random() * chars.length)] ).join("");
-    const newMeetingId = "${seg()}-${seg()}-${seg()}";
+    const seg = () => Array.from({length:3}, () => chars[Math.floor(Math.random() * chars.length)] ).join("");
+    const newMeetingId = `${seg()}-${seg()}-${seg()}`;
 
     setTimeout(() => {
       setIsCreating(false)
       toast.success("Meeting created successfully!");
-      navigate("/meeting/${newMeetingId}")
+      navigate(`/meeting/${newMeetingId}`)
     },400)
   }
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
       toast.error("Please enter a valid Meeting ID");
       return;
   }
-  navigate("/Meeting/${cleanId}")
+  navigate(`/Meeting/${cleanId}`)
 }
 
   return (
