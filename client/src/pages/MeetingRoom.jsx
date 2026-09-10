@@ -5,6 +5,8 @@ import { useCallback } from 'react'
 import { useState } from 'react'
 import VideoGrid from '../components/meeting/VideoGrid'
 import useWebRTC from '../hooks/useWebRTC'
+import ChatPanel from '../components/meeting/ChatPanel'
+import { useChat } from '../hooks/useChat'
 
 const MeetingRoom = () => {
   const {meetingId} = useParams()
@@ -19,6 +21,9 @@ const MeetingRoom = () => {
 
   // Initialize WebRTC hook
   const{localStream, remoteUsers, audioEnabled, videoEnabled, toggleAudio,toggleVideo,endMeeting} = useWebRTC(meetingId,userdata, handleMeetingEnd)
+  
+  // Initialize Chat
+  const{messages, sendMessage, unreadCount, isChatOpen, toggleChat} = useChat(meetingId,userdata)
   
   const isHost = true;
 
@@ -54,6 +59,13 @@ const MeetingRoom = () => {
           
 
           {/*In Meeting chat Drawer*/}
+          <ChatPanel
+          isOpen={isChatOpen}
+          onClose={toggleChat}
+          messages={messages}
+          onSendMessage={sendMessage}
+          currentUser={userdata}
+          />
 
           {/*Participants Drawer*/}
 
