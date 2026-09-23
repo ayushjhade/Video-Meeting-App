@@ -8,6 +8,7 @@ import useWebRTC from '../hooks/useWebRTC'
 import ChatPanel from '../components/meeting/ChatPanel'
 import { useChat } from '../hooks/useChat'
 import ParticipantList from '../components/meeting/ParticipantList'
+import ControlBar from '../components/meeting/ControlBar'
 
 const MeetingRoom = () => {
   const {meetingId} = useParams()
@@ -78,9 +79,25 @@ const MeetingRoom = () => {
           remoteUsers = {remoteUsers}
           meetingHostId = {dummyUser.id}
           />
-
-          {/* Bottom Floating Control Bar */}
+                    
         </div>
+        {/* Bottom Floating Control Bar */}
+          <ControlBar
+          roomId={meetingId||dummyMeetingDetails.meetingId }
+          audioEnabled={audioEnabled}
+          videoEnabled={videoEnabled}
+          onToggleAudio={toggleAudio}
+          onToggleVideo={toggleVideo}
+          onToggleChat={toggleChat}
+          onToggleParticipants={()=>setIsParticipantsOpen((prev)=>!prev)}
+          isChatOpen={isChatOpen}
+          isParticipantsOpen={isParticipantsOpen}
+          unreadCount={unreadCount}
+          participantCount={1+remoteUsers.length}
+          isHost={isHost}
+          onLeave={handleLeave}
+          onEndMeeting={handleEndMeeting}
+          />
     </div>
   )
 }
