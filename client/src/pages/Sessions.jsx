@@ -1,8 +1,15 @@
-import React from 'react'
-import { Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate} from 'react-router-dom'
 import { ArrowLeftIcon } from 'lucide-react'
+import {dummySessions} from '../assets/asset'
+import EmptySessions from '../components/sessions/EmptySessions'
 
 const Sessions = () => {
+
+  const [sessions] = useState([])
+  const [selectedSession, setSelectedSession] = useState(null)
+  const navigate = useNavigate()
+
   return (
     <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-12">
       {/* page title & Navigation header*/}
@@ -15,6 +22,21 @@ const Sessions = () => {
         <p className='text-sm text-slate-500 mt-1'>Review your past and active meeting history, participant logs, and chat transcripts.</p>
 
       </div>
+
+      {/*Session grid / empty state */}
+      {
+        sessions.length ==0 ? (
+          <EmptySessions/>
+        ):(
+          <div>
+            <p>Session Card</p>
+          </div>
+        )
+      }
+
+      {/* Session Detail Model */}
+      <p>Session Detail Model</p>
+
 
     </main>
   )
