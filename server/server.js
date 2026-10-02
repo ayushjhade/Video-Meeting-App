@@ -2,8 +2,11 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser"
+import { initDB } from "./config/db.js";
 
 const app = express();
+
+initDB() //connect to Neon & Initialize Tables
 
 const allowedOrigins = process.env.ORIGINS.split(",")
 app.use(cors({origin:allowedOrigins, credentials: true}))
