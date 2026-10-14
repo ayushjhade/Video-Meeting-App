@@ -7,7 +7,7 @@ import {clerkMiddleware} from '@clerk/express'
 import { handleClerkWebhook } from "./controllers/webhookController.js";
 const app = express();
 
-initDB() //connect to Neon & Initialize Tables
+await initDB() //connect to Neon & Initialize Tables
 
 const allowedOrigins = process.env.ORIGINS.split(",")
 app.use(cors({origin:allowedOrigins, credentials: true}))
